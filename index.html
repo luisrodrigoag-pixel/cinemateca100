@@ -835,6 +835,7 @@ body.intro-active{overflow-x:hidden}
 </div>
 <div class="subtabs" id="tvtabs" style="display:none">
   <button class="subtab on" data-list="tv" onclick="setList('tv')" data-es="★ Las 100 · Rolling Stone" data-en="★ The 100 · Rolling Stone">★ Las 100 · Rolling Stone</button>
+  <button class="subtab" data-list="recotv" onclick="setList('recotv')" data-es="✨ Recomendación" data-en="✨ Recommended">✨ Recomendación</button>
   <button class="subtab" data-list="nyttv" onclick="setList('nyttv')" data-es="★ Las 100 · NYT <span class=newpill>NUEVO</span>" data-en="★ The 100 · NYT <span class=newpill>NEW</span>">★ Las 100 · NYT <span class="newpill">NUEVO</span></button>
   <button class="subtab" data-list="emmys" onclick="setList('emmys')" data-es="🏆 Emmy" data-en="🏆 Emmys">🏆 Emmy</button>
   <button class="subtab" data-list="showrunners" onclick="setList('showrunners')" data-es="📺 Showrunners" data-en="📺 Showrunners">📺 Showrunners</button>
@@ -2812,6 +2813,10 @@ const RECO=[
 {r:1,t:"The Social Reckoning",te:"The Social Reckoning",d:"Aaron Sorkin",y:2026,c:"Estados Unidos",g:"thriller",wk:"The Social Reckoning",sEs:"La ingeniera Frances Haugen sale de Facebook con decenas de miles de documentos internos y, junto a un reportero del Wall Street Journal, los convierte en el escandalo que sento a la empresa frente al Senado.",sEn:"Engineer Frances Haugen walks out of Facebook with tens of thousands of internal documents and, with a Wall Street Journal reporter, turns them into the scandal that dragged the company before the Senate.",wEs:"Sorkin vuelve a Facebook dieciseis anos despues, pero ya no para contar como se fundo sino para contar quien se atrevio a ensenar lo que la empresa sabia de si misma.",wEn:"Sorkin returns to Facebook sixteen years later, no longer to tell how it was founded but to tell who dared reveal what the company knew about itself.",tEs:"Haugen filtro bajo el seudonimo Sean y presento ocho quejas ante la SEC: su acusacion no fue solo moral, fue que Facebook enganaba a sus inversionistas.",tEn:"Haugen leaked under the alias Sean and filed eight complaints with the SEC: her accusation was not only moral, it was that Facebook was misleading its investors."}
 ];
 const WIKI_RECO={};RECO.forEach(function(b){if(b.wk)WIKI_RECO[b.r]=b.wk;});
+const RECOTV=[
+{r:1,t:"Widow's Bay",te:"La maldición de Widow's Bay",d:"Katie Dippold",y:"2026–",c:"EE.UU.",g:"terror",pl:"Apple TV+",wk:"Widow's Bay",sEs:"El alcalde de una isla venida a menos de Nueva Inglaterra quiere convertirla en el próximo gran destino turístico, justo cuando las viejas leyendas del lugar empiezan a cumplirse.",sEn:"The mayor of a fading New England island wants to turn it into the next great tourist destination, just as the old local legends start coming true.",wEs:"Matthew Rhys y la dirección de Hiro Murai, el de Atlanta, llevan el misterio de pueblo chico a terreno de prestigio: ganó un Emmy en 2026 y ya tiene segunda temporada.",wEn:"Matthew Rhys and director Hiro Murai, of Atlanta fame, lift small-town mystery into prestige territory: it won an Emmy in 2026 and is already renewed.",tEs:"La creó Katie Dippold, que venía de la comedia pura —Parks and Recreation y Cazafantasmas—, y la isla de Nueva Inglaterra en realidad es Devens, Massachusetts, una antigua base militar desmantelada.",tEn:"It was created by Katie Dippold, who came from pure comedy —Parks and Recreation and Ghostbusters—, and the New England island is really Devens, Massachusetts, a decommissioned army base."}
+];
+const WIKI_RECOTV={};RECOTV.forEach(function(b){if(b.wk)WIKI_RECOTV[b.r]=b.wk;});
 /* ============ NUEVAS FUENTES: IMDb · Pitchfork · NPR Music · Guardian · BBC · NPR Books ============ */
 const IMDB=[{r:1,t:"The Shawshank Redemption",te:"Sueño de fuga",d:"Frank Darabont",y:1994,c:"Estados Unidos",g:"drama",pl:"Max",wk:"The Shawshank Redemption",sEs:"Un banquero condenado injustamente por asesinato forja una amistad profunda y una esperanza inquebrantable a lo largo de dos décadas en una prisión brutal.",sEn:"A banker wrongly convicted of murder forges a deep friendship and an unbreakable hope across two decades in a brutal prison.",wEs:"Fracasó en taquilla pero se convirtió en un fenómeno de culto y encabeza desde hace años la lista de mejores películas de IMDb.",wEn:"It flopped at the box office yet became a cult phenomenon and has topped IMDb's best-films list for years.",tEs:"Está basada en una novela corta de Stephen King que él mismo dudaba que pudiera adaptarse al cine.",tEn:"It is based on a Stephen King novella that even he doubted could be adapted to film."},
 {r:2,t:"The Godfather",te:"El padrino",d:"Francis Ford Coppola",y:1972,c:"Estados Unidos",g:"crimen",pl:"Prime Video",wk:"The Godfather",sEs:"El hijo menor de una familia mafiosa se transforma poco a poco en el despiadado heredero del imperio criminal de su padre.",sEn:"The youngest son of a Mafia family gradually transforms into the ruthless heir to his father's criminal empire.",wEs:"Redefinió el cine de gánsteres y suele citarse como una de las mejores películas jamás realizadas.",wEn:"It redefined the gangster film and is routinely cited as one of the greatest movies ever made.",tEs:"Marlon Brando se colocó algodón en las mejillas para lograr el rostro caído y la voz apagada de Vito Corleone.",tEn:"Marlon Brando stuffed cotton in his cheeks to create Vito Corleone's jowly face and muffled voice."},
@@ -3898,8 +3903,8 @@ var CINECLUB={
 
 var TMDB_KEY='7bc3da11b8582b734dfb880f570984fc';
 function tmdbKind(m){
-  if(m==='tv'||m==='nyttv'||m==='tvxxi'||m==='tvmini'||m==='tvanim'||m==='oneseason')return 'tv';
-  if(m==='cine'||m==='scorsese'||m==='tarantino'||m==='sightsound'||m==='criterion'||m==='imdb'||m==='arquitectura'||m==='futbol')return 'movie';
+  if(m==='tv'||m==='recotv'||m==='nyttv'||m==='tvxxi'||m==='tvmini'||m==='tvanim'||m==='oneseason')return 'tv';
+  if(m==='cine'||m==='reco'||m==='scorsese'||m==='tarantino'||m==='sightsound'||m==='criterion'||m==='imdb'||m==='arquitectura'||m==='futbol')return 'movie';
   return '';
 }
 function jsonp(url){return new Promise(function(res){
@@ -4038,7 +4043,7 @@ function posterHint(){if(_posterHinted||_posterOK>0)return;_posterHinted=true;if
 let LANG='es';
 const state={mode:'cine',
   pillar:'cine',
-  seen:{reco:{},cine:{},tv:{},radio:{},libros:{},thrillers:{},scorsese:{},tarantino:{},gates:{},buffett:{},sightsound:{},criterion:{},imdb:{},pitchfork:{},nprmusic:{},guardian:{},bbc:{},nprbooks:{},challenge:{},mexicanos:{},cinemx:{},perfil:{},dirfav:{},bowie:{},king:{},obama:{},criterionc:{},festivales:{},rutas:{},universos:{},telegraph:{},esmus:{},eslit:{},nobel:{},booker:{},pulitzer:{},tvxxi:{},tvmini:{},tvanim:{},indie:{},sellos:{},bowiepair:{},scores:{},dop:{},adapta:{},estudios:{},oscars:{},emmys:{},grammys:{},editoriales:{},showrunners:{},movimientos:{},forbes:{},arquitectura:{},oneseason:{},futbol:{},carteles:{},doblaje:{},nyttv:{}},watch:{reco:{},cine:{},tv:{},radio:{},libros:{},thrillers:{},scorsese:{},tarantino:{},gates:{},buffett:{},sightsound:{},criterion:{},imdb:{},pitchfork:{},nprmusic:{},guardian:{},bbc:{},nprbooks:{},challenge:{},mexicanos:{},cinemx:{},perfil:{},dirfav:{},bowie:{},king:{},obama:{},criterionc:{},festivales:{},rutas:{},universos:{},telegraph:{},esmus:{},eslit:{},nobel:{},booker:{},pulitzer:{},tvxxi:{},tvmini:{},tvanim:{},indie:{},sellos:{},bowiepair:{},scores:{},dop:{},adapta:{},estudios:{},oscars:{},emmys:{},grammys:{},editoriales:{},showrunners:{},movimientos:{},forbes:{},arquitectura:{},oneseason:{},futbol:{},carteles:{},doblaje:{},nyttv:{}},
+  seen:{reco:{},recotv:{},cine:{},tv:{},radio:{},libros:{},thrillers:{},scorsese:{},tarantino:{},gates:{},buffett:{},sightsound:{},criterion:{},imdb:{},pitchfork:{},nprmusic:{},guardian:{},bbc:{},nprbooks:{},challenge:{},mexicanos:{},cinemx:{},perfil:{},dirfav:{},bowie:{},king:{},obama:{},criterionc:{},festivales:{},rutas:{},universos:{},telegraph:{},esmus:{},eslit:{},nobel:{},booker:{},pulitzer:{},tvxxi:{},tvmini:{},tvanim:{},indie:{},sellos:{},bowiepair:{},scores:{},dop:{},adapta:{},estudios:{},oscars:{},emmys:{},grammys:{},editoriales:{},showrunners:{},movimientos:{},forbes:{},arquitectura:{},oneseason:{},futbol:{},carteles:{},doblaje:{},nyttv:{}},watch:{reco:{},recotv:{},cine:{},tv:{},radio:{},libros:{},thrillers:{},scorsese:{},tarantino:{},gates:{},buffett:{},sightsound:{},criterion:{},imdb:{},pitchfork:{},nprmusic:{},guardian:{},bbc:{},nprbooks:{},challenge:{},mexicanos:{},cinemx:{},perfil:{},dirfav:{},bowie:{},king:{},obama:{},criterionc:{},festivales:{},rutas:{},universos:{},telegraph:{},esmus:{},eslit:{},nobel:{},booker:{},pulitzer:{},tvxxi:{},tvmini:{},tvanim:{},indie:{},sellos:{},bowiepair:{},scores:{},dop:{},adapta:{},estudios:{},oscars:{},emmys:{},grammys:{},editoriales:{},showrunners:{},movimientos:{},forbes:{},arquitectura:{},oneseason:{},futbol:{},carteles:{},doblaje:{},nyttv:{}},
   seenFilter:false,awTab:'winners',myAwards:[],challenge:{}};
 
 /* Configuración por modo: datos, paleta, portadas y etiquetas */
@@ -4049,6 +4054,11 @@ const DS={
    extEs:'▶ Ver dónde (JustWatch MX)',extEn:'▶ Where to watch (JustWatch MX)',
    kickEs:'LA ENCUESTA DEFINITIVA · THE NEW YORK TIMES',kickEn:'THE DEFINITIVE POLL · THE NEW YORK TIMES',
    titleEs:'Las 100 mejores<br>películas del <span class="em">siglo&nbsp;XXI</span>',titleEn:'The 100 best<br>movies of the <span class="em">21st&nbsp;century</span>'},
+ recotv:{data:RECOTV,wiki:WIKI_RECOTV,pal:GEN,total:RECOTV.length,square:false,ext:'jw',plIcon:'✨',
+   subEs:'Creación',subEn:'Creator',unitEs:'series',unitEn:'series',
+   extEs:'▶ Ver dónde (JustWatch MX)',extEn:'▶ Where to watch (JustWatch MX)',
+   kickEs:'LO QUE TE RECOMIENDO VER',kickEn:'WHAT I RECOMMEND YOU WATCH',
+   titleEs:'La <span class="em">recomendación</span>',titleEn:'The <span class="em">recommendation</span>'},
  tv:{data:SERIES,wiki:WIKI_TV,pal:GEN,total:100,square:false,ext:'jw',plIcon:'📺',
    subEs:'Creación',subEn:'Creator',unitEs:'series',unitEn:'series',
    extEs:'▶ Ver dónde (JustWatch MX)',extEn:'▶ Where to watch (JustWatch MX)',
@@ -4310,7 +4320,7 @@ function load(){try{
   const w=JSON.parse(localStorage.getItem('cine100_watch')||'null');
   if(s){state.seen=(s.cine!==undefined||s.tv!==undefined||s.radio!==undefined)?s:{cine:s,tv:{},radio:{}};}
   if(w){state.watch=(w.cine!==undefined||w.tv!==undefined||w.radio!==undefined)?w:{cine:w,tv:{},radio:{}};}
-  ['reco','cine','tv','radio','libros','thrillers','scorsese','tarantino','gates','buffett','sightsound','criterion','imdb','pitchfork','nprmusic','guardian','bbc','nprbooks','challenge','mexicanos','cinemx','perfil','dirfav','bowie','king','obama','criterionc','festivales','rutas','universos','telegraph','esmus','eslit','nobel','booker','pulitzer','tvxxi','tvmini','tvanim','indie','sellos','bowiepair','scores','dop','adapta','estudios','oscars','emmys','grammys','editoriales','showrunners','movimientos','forbes','arquitectura','oneseason','futbol','carteles','doblaje','nyttv'].forEach(k=>{state.seen[k]=state.seen[k]||{};state.watch[k]=state.watch[k]||{};});
+  ['reco','recotv','cine','tv','radio','libros','thrillers','scorsese','tarantino','gates','buffett','sightsound','criterion','imdb','pitchfork','nprmusic','guardian','bbc','nprbooks','challenge','mexicanos','cinemx','perfil','dirfav','bowie','king','obama','criterionc','festivales','rutas','universos','telegraph','esmus','eslit','nobel','booker','pulitzer','tvxxi','tvmini','tvanim','indie','sellos','bowiepair','scores','dop','adapta','estudios','oscars','emmys','grammys','editoriales','showrunners','movimientos','forbes','arquitectura','oneseason','futbol','carteles','doblaje','nyttv'].forEach(k=>{state.seen[k]=state.seen[k]||{};state.watch[k]=state.watch[k]||{};});
   state.myAwards=JSON.parse(localStorage.getItem('cine100_myawards')||'[]');
   state.challenge=JSON.parse(localStorage.getItem('cine100_challenge')||'{}')||{};
   const l=localStorage.getItem('cine100_lang');if(l)LANG=l;
@@ -4342,7 +4352,7 @@ const QSETS={
   {es:'"Un libro es un sueño que sostienes en las manos." — Neil Gaiman',en:'"A book is a dream you hold in your hands." — Neil Gaiman'}
  ]
 };
-function domainOf(m){if(m==='tv'||m==='nyttv'||m==='tvxxi'||m==='tvmini'||m==='tvanim'||m==='oneseason')return 'tv';if(m==='radio'||m==='pitchfork'||m==='nprmusic'||m==='esmus'||m==='indie'||m==='sellos')return 'radio';if(m==='libros'||m==='thrillers'||m==='gates'||m==='buffett'||m==='guardian'||m==='bbc'||m==='nprbooks'||m==='bowie'||m==='king'||m==='telegraph'||m==='eslit'||m==='nobel'||m==='booker'||m==='pulitzer'||m==='bowiepair'||m==='forbes')return 'libros';return 'cine';}
+function domainOf(m){if(m==='tv'||m==='recotv'||m==='nyttv'||m==='tvxxi'||m==='tvmini'||m==='tvanim'||m==='oneseason')return 'tv';if(m==='radio'||m==='pitchfork'||m==='nprmusic'||m==='esmus'||m==='indie'||m==='sellos')return 'radio';if(m==='libros'||m==='thrillers'||m==='gates'||m==='buffett'||m==='guardian'||m==='bbc'||m==='nprbooks'||m==='bowie'||m==='king'||m==='telegraph'||m==='eslit'||m==='nobel'||m==='booker'||m==='pulitzer'||m==='bowiepair'||m==='forbes')return 'libros';return 'cine';}
 
 /* ============ LANGUAGE ============ */
 function setLang(l){
@@ -4379,6 +4389,7 @@ function applyMode(){
   ['premios','awardsSec'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display=(state.mode==='cine')?'':'none';});
   $('#grid').classList.toggle('albumgrid',c.square);
   var ph={reco:['Buscar película o director…','Search film or director…'],
+          recotv:['Buscar serie o creador…','Search series or creator…'],
           cine:['Buscar película o director…','Search film or director…'],
           tv:['Buscar serie o creador…','Search series or creator…'],
           radio:['Buscar álbum o artista…','Search album or artist…'],
@@ -5539,6 +5550,7 @@ GLOSS_SETS.cinemx=GLOSS_SETS.cine;
 GLOSS_SETS.perfil=GLOSS_SETS.cine;
 GLOSS_SETS.dirfav=GLOSS_SETS.cine;
 GLOSS_SETS.reco=GLOSS_SETS.cine;
+GLOSS_SETS.recotv=GLOSS_SETS.tv;
 GLOSS_SETS.obama=GLOSS_SETS.cine;
 GLOSS_SETS.criterionc=GLOSS_SETS.cine;
 GLOSS_SETS.festivales=GLOSS_SETS.cine;
